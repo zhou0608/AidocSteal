@@ -1,0 +1,1 @@
+start "" "D:\Program Files\YeShen\Nox\bin\Nox.exe"

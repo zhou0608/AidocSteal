@@ -1,4 +1,4 @@
-import time,re,os
+import time,re,os,sys
 import inifile
 from appium import webdriver
 class Aidoc(object):
@@ -70,12 +70,15 @@ class Aidoc(object):
         time.sleep(3)
         driver.swipe(x1, y1, x1, y2)
 
+
     def Click_me(self,driver):        #点击自己的能量
         value = self.Pull_energy(driver)
         for i in value:
             driver.find_element_by_name(''+str(i)+'').click()
 
     def Run(self):
+        self.startAndServer()
+        time.sleep(30)
         while True:
             self.startAppiumServer()
             time.sleep(10)
@@ -94,7 +97,7 @@ class Aidoc(object):
                 print(s)
                 print('捕捉异常外关闭')
             self.stupAppiumServer()
-
+        self.stupAndServer()
     def Login(self,driver):
         driver = driver
         try:
@@ -114,13 +117,21 @@ class Aidoc(object):
         return  client
 
     def startAppiumServer(self):
-        print('--------------启动服务')
+        print('--------------启动Appium服务')
         os.system('start /b startAppium.bat')
-
     def stupAppiumServer(self):
-        print('--------------关闭服务')
+        print('--------------关闭Appium服务')
         os.system('chcp 65001')
         os.system('taskkill /F /IM node.exe /t')
+
+    def startAndServer(self):
+        print('--------------启动安卓模拟器')
+        os.system('start /b Run_And.bat')
+
+    def stupAndServer(self):
+        print('--------------关闭安卓模拟器')
+        os.system('start /b Close_And.bat')
+
 
 if __name__=='__main__':
     Aidoc().Run()
